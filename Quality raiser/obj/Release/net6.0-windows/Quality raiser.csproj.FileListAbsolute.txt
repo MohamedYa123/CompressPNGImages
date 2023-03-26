@@ -1,0 +1,18 @@
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Release\net6.0-windows\Quality raiser.exe
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Release\net6.0-windows\Quality raiser.deps.json
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Release\net6.0-windows\Quality raiser.runtimeconfig.json
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Release\net6.0-windows\Quality raiser.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Release\net6.0-windows\Quality raiser.pdb
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.csproj.AssemblyReference.cache
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality_raiser.Form1.resources
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.csproj.GenerateResource.cache
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.GeneratedMSBuildEditorConfig.editorconfig
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.AssemblyInfoInputs.cache
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.AssemblyInfo.cs
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.csproj.CoreCompileInputs.cache
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\refint\Quality raiser.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.pdb
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality raiser.genruntimeconfig.cache
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\ref\Quality raiser.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\obj\Release\net6.0-windows\Quality_raiser.inverser.resources
