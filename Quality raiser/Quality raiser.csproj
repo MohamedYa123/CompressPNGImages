@@ -9,4 +9,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Accord.Video.FFMPEG" Version="3.8.0" />
+    <PackageReference Include="Emgu.CV" Version="4.6.0.5131" />
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.6.0.5131" />
+    <PackageReference Include="FFmpeg.AutoGen" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>

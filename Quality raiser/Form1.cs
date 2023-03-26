@@ -92,5 +92,11 @@ namespace Quality_raiser
             inverser inv=new inverser();
             inv.Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            raisevideo rs=new raisevideo();
+            rs.Show();
+        }
     }
 }
