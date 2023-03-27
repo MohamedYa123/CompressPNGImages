@@ -1,3 +1,5 @@
+using System.Runtime.Intrinsics.X86;
+
 namespace Quality_raiser
 {
     public partial class Form1 : Form
@@ -7,7 +9,17 @@ namespace Quality_raiser
             InitializeComponent();
         }
         Ruler r = new Ruler();
-        private void button1_Click(object sender, EventArgs e)
+        bool done;
+        Bitmap inversed;
+        void study(Bitmap btmp2,Bitmap btmp,byte lowerrate,byte finder)
+        {
+            done= false;
+            r.study(btmp2, btmp, lowerrate, finder);
+            inversed= r.inverse(btmp2);
+            done = true;
+        }
+        Bitmap gbtmp;
+        private async void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog of=new OpenFileDialog();
             of.ShowDialog();
@@ -42,13 +54,23 @@ namespace Quality_raiser
                 }
                 
             }
-            pictureBox1.Image=(Image)btmp;
-            pictureBox2.Image=(Image)btmp2;//lowered
+          
             r = new Ruler();
+            switch (comboBox1.SelectedIndex) {
+                case 0:
+                    r.mode=Ruler.keymode.square; break;
+                case 1:
+                    r.mode=Ruler.keymode.horizontal; break;
+                case 2:
+                    r.mode = Ruler.keymode.vertical;
+                    break;
+            }
             byte finder = Convert.ToByte(numericUpDown2.Value);
-            r.study(btmp2, btmp, lowerrate,finder);
-            pictureBox3.Image = (Image)r.inverse(btmp2);//regenerated
-            MessageBox.Show("Size of Ruler : "+r.getsize()/1024 + " KB");
+            done= false;
+            await Task.Run(() => study(btmp2, btmp, lowerrate, finder));
+            pictureBox1.Image = (Image)btmp;
+            pictureBox2.Image = (Image)btmp2;//lowered
+            gbtmp = btmp2;
            
         }
 
@@ -97,6 +119,31 @@ namespace Quality_raiser
         {
             raisevideo rs=new raisevideo();
             rs.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex= 0;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                progressBar1.Value =Convert.ToInt32(Math.Round( Convert.ToDouble( r.completion) / r.totalsize*100));
+
+                if (done)
+                {
+                    pictureBox3.Image = inversed;//regenerated
+                    done = false;
+                    MessageBox.Show("Size of Ruler : " + r.getsize() / 1024.0 + " KB");
+                 
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

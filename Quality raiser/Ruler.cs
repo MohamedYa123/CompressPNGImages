@@ -15,28 +15,96 @@ namespace Quality_raiser
         Dictionary<ruleC, Rule> rulesB = new Dictionary<ruleC, Rule>();
         byte finder = 10;
         byte pnum;
+        public int completion = 0;
+        public int totalsize=0;
         public void study(Bitmap small,Bitmap big,byte lowerrate,byte finder)
         {
+            
             pnum = lowerrate;
             this.finder= finder;
-            for(int i=0;i<small.Width-1;i+=2)
+            int left = 2;
+            int right = 2;
+            if (mode == keymode.horizontal)
             {
-                for(int i2=0;i2< small.Height-1;i2+=2)
+                left = 2;
+                right = 1;
+            }
+            else if(mode == keymode.vertical) 
+            {
+                left = 1; right=2;
+            }
+            totalsize = small.Width/left * small.Height/right;
+            for (int i=0;i<small.Width-1;i+=left)
+            {
+                for(int i2=0;i2< small.Height-1;i2+=right)
                 {
+                    completion++;
                     Color c1 = small.GetPixel(i, i2);
                     Color c2 = small.GetPixel(i+1, i2);
                     Color c3 = small.GetPixel(i, i2+1);
                     Color c4 = small.GetPixel(i+1, i2+1);
-                    byte[] ruleR = { Convert.ToByte(c1.R/finder), Convert.ToByte(c2.R / finder), Convert.ToByte(c3.R / finder), Convert.ToByte(c4.R / finder) };   
-                    byte[] ruleG = { Convert.ToByte(c1.G/finder), Convert.ToByte(c2.G / finder), Convert.ToByte(c3.G / finder), Convert.ToByte(c4.G/finder) };   
-                    byte[] ruleB = {Convert.ToByte(c1.B / finder), Convert.ToByte(c2.B / finder), Convert.ToByte(c3.B / finder), Convert.ToByte(c4.B / finder) };
-                    int[] newR = new int[lowerrate* lowerrate*4];
-                    int[] newG = new int[lowerrate * lowerrate*4];
-                    int[] newB = new int[lowerrate * lowerrate * 4];
-                    int counter = 0;
-                    for(int a = i * lowerrate; a < i * lowerrate + lowerrate* 2; a++)
+                    byte[] ruleR = null;
+                    byte[] ruleG= null;
+                    byte[] ruleB = null;
+                    int[] newR = null;// new int[lowerrate * lowerrate * 4];
+                    int[] newG = null;// new int[lowerrate * lowerrate * 4];
+                    int[] newB = null;// new int[lowerrate * lowerrate * 4];
+                    if (mode == keymode.square)
                     {
-                        for(int b = i2 * lowerrate; b < i2 * lowerrate + lowerrate* 2; b++)
+                        byte[] r = { Convert.ToByte(Math.Round( Convert.ToDouble( c1.R) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble( c2.R) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble(c3.R) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble(c4.R) / finder)) };
+                        byte[] g = { Convert.ToByte(Math.Round( Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble(c2.G) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble(c3.G) / finder)), Convert.ToByte(Math.Round( Convert.ToDouble(c4.G) / finder)) };
+                        byte[] b = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.B) / finder)), Convert.ToByte(Convert.ToDouble(c3.B)     / finder), Convert.ToByte(Convert.ToDouble(c4.B) / finder) };
+                        ruleR = r;
+                        ruleG=g;
+                        ruleB = b;
+                         newR = new int[lowerrate * lowerrate * 4];
+                         newG = new int[lowerrate * lowerrate * 4];
+                         newB = new int[lowerrate * lowerrate * 4];
+                    }
+                    else if(mode==keymode.horizontal)
+                    {
+                        byte[] r = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.R) / finder)) };
+                        byte[] g = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.G) / finder)) };
+                        byte[] b = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.B) / finder)) };
+                        ruleR = r;
+                        ruleG = g;
+                        ruleB = b;
+                         newR = new int[lowerrate * lowerrate * 2];
+                         newG = new int[lowerrate * lowerrate * 2];
+                         newB = new int[lowerrate * lowerrate * 2];
+                    }
+                    else if (mode == keymode.vertical)
+                    {
+                        byte[] r = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.R) / finder)) };
+                        byte[] g = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.G) / finder)) };
+                        byte[] b = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.B) / finder)) };
+                        ruleR = r;
+                        ruleG = g;
+                        ruleB = b;
+                        newR = new int[lowerrate * lowerrate * 2];
+                        newG = new int[lowerrate * lowerrate * 2];
+                        newB = new int[lowerrate * lowerrate * 2];
+                    }
+                    int counter = 0;
+                    int a1 = 1;
+                    int a2 = 1;
+                    if (mode == keymode.square)
+                    {
+                        a1 = 2;
+                        a2=2;
+                    }
+                    else if (mode == keymode.horizontal)
+                    {
+                        a1 = 2;a2 = 1;
+                    }
+                    else if (mode == keymode.vertical)
+                    {
+                        a1= 1;
+                        a2 = 2;
+                    }
+                    for(int a = i * lowerrate; a < i * lowerrate + lowerrate* a1; a++)
+                    {
+                        for(int b = i2 * lowerrate; b < i2 * lowerrate + lowerrate* a2; b++)
                         {
                             Color c=big.GetPixel(a, b);
                             newR[counter] = c.R;
@@ -122,24 +190,79 @@ namespace Quality_raiser
         {
             Bitmap big=new Bitmap(small.Width*pnum, small.Height*pnum);
             int lowerrate = pnum;
-            for (int i = 0; i < small.Width - 1; i += 2)
+            int left = 2;
+            int right = 2;
+            if (mode == keymode.horizontal)
             {
-                for (int i2 = 0; i2 < small.Height - 1; i2 += 2)
+                left = 2;
+                right = 1;
+            }
+            else if (mode == keymode.vertical)
+            {
+                left = 1; right = 2;
+            }
+            for (int i = 0; i < small.Width - 1; i += left)
+            {
+                for (int i2 = 0; i2 < small.Height - 1; i2 += right)
                 {
                     Color c1 = small.GetPixel(i, i2);
                     Color c2 = small.GetPixel(i + 1, i2);
                     Color c3 = small.GetPixel(i, i2 + 1);
                     Color c4 = small.GetPixel(i + 1, i2 + 1);
-                    byte[] ruleR = { Convert.ToByte(c1.R / finder), Convert.ToByte(c2.R / finder), Convert.ToByte(c3.R / finder), Convert.ToByte(c4.R / finder) };
-                    byte[] ruleG = { Convert.ToByte(c1.G / finder), Convert.ToByte(c2.G / finder), Convert.ToByte(c3.G / finder), Convert.ToByte(c4.G / finder) };
-                    byte[] ruleB = { Convert.ToByte(c1.B / finder), Convert.ToByte(c2.B / finder), Convert.ToByte(c3.B / finder), Convert.ToByte(c4.B / finder) };
+                    byte[] ruleR = null;
+                    byte[] ruleG = null;
+                    byte[] ruleB = null;
+                    if (mode == keymode.square)
+                    {
+                        byte[] r = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c4.R) / finder)) };
+                        byte[] g = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c4.G) / finder)) };
+                        byte[] b = { Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.B) / finder)), Convert.ToByte(Convert.ToDouble(c3.B) / finder), Convert.ToByte(Convert.ToDouble(c4.B) / finder) };
+                        ruleR = r;
+                        ruleG = g;
+                        ruleB = b;
+                    }
+                    else if (mode == keymode.horizontal)
+                    {
+                        byte[] r = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.R) / finder)) };
+                        byte[] g = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.G) / finder)) };
+                        byte[] b = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c2.B) / finder)) };
+                        ruleR = r;
+                        ruleG = g;
+                        ruleB = b;
+                    }
+                    else if (mode == keymode.vertical)
+                    {
+                        byte[] r = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.R) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.R) / finder)) };
+                        byte[] g = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.G) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.G) / finder)) };
+                        byte[] b = {Convert.ToByte(Math.Round(Convert.ToDouble(c1.B) / finder)), Convert.ToByte(Math.Round(Convert.ToDouble(c3.B) / finder)) };
+                        ruleR = r;
+                        ruleG = g;
+                        ruleB = b;
+                     
+                    }
+                    int a1 = 1;
+                    int a2 = 1;
+                    if (mode == keymode.square)
+                    {
+                        a1 = 2;
+                        a2 = 2;
+                    }
+                    else if (mode == keymode.horizontal)
+                    {
+                        a1 = 2; a2 = 1;
+                    }
+                    else if (mode == keymode.vertical)
+                    {
+                        a1 = 1;
+                        a2 = 2;
+                    }
                     int counter = 0;
                     var colorextractedR = rulesR[ruleC.fromint( ruleR)];
                     var colorextractedG = rulesG[ruleC.fromint(ruleG)];
                     var colorextractedB = rulesB[ruleC.fromint(ruleB)];
-                    for (int a = i * lowerrate; a < i * lowerrate + lowerrate * 2; a++)
+                    for (int a = i * lowerrate; a < i * lowerrate + lowerrate * a1; a++)
                     {
-                        for (int b = i2 * lowerrate; b < i2 * lowerrate + lowerrate * 2; b++)
+                        for (int b = i2 * lowerrate; b < i2 * lowerrate + lowerrate * a2; b++)
                         {
                             Color c = Color.FromArgb(255, colorextractedR.answers[counter], colorextractedG.answers[counter], colorextractedB.answers[counter]);
                             big.SetPixel(a, b, c);
@@ -152,10 +275,18 @@ namespace Quality_raiser
         }
         public int getsize()
         {
-            int size= 0;
+            int size = 0;
             size += rulesR.Count + rulesB.Count + rulesG.Count;
-            size *= pnum*pnum*4+4;
-            return size+2+3*4;
+            if (mode == keymode.square)
+            {
+                size *= pnum * pnum * 4 + 4;
+            }
+            else if (mode == keymode.horizontal||mode==keymode.vertical)
+            {
+                size *= pnum*pnum * 2 + 2;
+            }
+            
+            return size+4+3*4;
         }
         [Obsolete]
         public void saveme(string path)
@@ -193,35 +324,41 @@ namespace Quality_raiser
             int i = BitConverter.ToInt32(bytes, 0);
             return i;
         }
+        public enum keymode { square,horizontal,vertical}
+        public keymode mode;
+        public byte version;
         public void savebytes(string path)
         {
             byte[]  allbytes= new byte[getsize()];
             allbytes[0] = pnum;
             allbytes[1] = finder;
+            allbytes[2] = (byte)mode;
+            allbytes[3] = (byte)version;
             var bytesR = getbytes(rulesR.Count);
             var bytesG=getbytes(rulesG.Count);
             var bytesB=getbytes(rulesB.Count);
             int tr = 0;
-            for(int u=2;u<bytesR.Length+2;u++)
+            for(int u=4;u<bytesR.Length+4;u++)
             {
                 allbytes[u] = bytesR[tr];
                 tr++;
             }
             int y = tr;
             tr = 0;
-            for(int u=2+y;u<bytesG.Length+2+y;u++)
+            for(int u=4+y;u<bytesG.Length+4+y;u++)
             {
                 allbytes[u] = bytesG[tr];
                 tr++;
             }
             y += tr;
             tr = 0;
-            for(int u=2+y;u<bytesB.Length+2+y;u++)
+            for(int u=4+y;u<bytesB.Length+4+y;u++)
             {
                 allbytes[u] = bytesB[tr];
                 tr++;
             }
-            int i = 2+3*4;
+            int i = 4+3*4;
+            int q = -1;
             for (int z = 0; z < 3; z++)
             {
                 var h = rulesR;
@@ -239,11 +376,22 @@ namespace Quality_raiser
                 }
                 foreach (var a in h)
                 {
+                    q++;
                     allbytes[i] = a.Key.a1;
                     allbytes[i + 1] = a.Key.a2;
-                    allbytes[i + 2] = a.Key.a3;
-                    allbytes[i + 3] = a.Key.a4;
-                    i += 4;
+                    if (mode == keymode.square)
+                    {
+                        allbytes[i + 2] = a.Key.a3;
+                        allbytes[i + 3] = a.Key.a4;
+                    }
+                    if (mode == keymode.square)
+                    {
+                        i += 4;
+                    }
+                    else
+                    {
+                        i += 2;
+                    }
                     foreach (var b in a.Value.answers)
                     {
                         allbytes[i] = Convert.ToByte( b);
@@ -257,26 +405,37 @@ namespace Quality_raiser
         public void loadfrombytes(string path)
         {
             var allbytes=File.ReadAllBytes(path);
+            mode = (keymode)allbytes[2];
             pnum = allbytes[0];
-            int max = pnum * pnum * 4;
+            int max = pnum * pnum * 2;
+            
             finder = allbytes[1];
+            if (version != allbytes[3])
+            {
+                throw new Exception("version mismatch !");
+            }
+           
+            if (mode == keymode.square)
+            {
+                max = pnum * pnum * 4;
+            }
             var bytesR = new byte[4];
             var bytesG = new byte[4];
             var bytesB = new byte[4];
-            int pointera = 2;
+            int pointera = 4;
             for(int i=0;i<3;i++)
             {
                 for(int y=0;y<4;y++) { 
                 switch(i)
                     {
                         case 0:
-                            bytesR[y] = allbytes[2+i*4+y];
+                            bytesR[y] = allbytes[4+i*4+y];
                             break;
                         case 1:
-                            bytesG[y] = allbytes[2+i*4+y];
+                            bytesG[y] = allbytes[4+i*4+y];
                             break;
                         case 2:
-                            bytesB[y] = allbytes[2+i*4+y];
+                            bytesB[y] = allbytes[4+i*4+y];
                             break;
                     }
                     pointera++;
@@ -294,13 +453,18 @@ namespace Quality_raiser
             int pointer = 0;
             int colorh = 0;
             int colorlen = rulesRnum;
+            int maxindx = 2;
+            if (mode == keymode.square)
+            {
+                maxindx = 4;
+            }
             for(int i=pointera;i<allbytes.Length;i++)
             {
                 if (record)
                 {
                     dash[index] = allbytes[i];
                     index++;
-                    if (index == 4)
+                    if (index == maxindx)
                     {
                         index= 0;
                         record= false;
@@ -367,10 +531,22 @@ namespace Quality_raiser
        public byte a2;
        public byte a3;
        public byte a4;
-       public static  ruleC fromint(byte[]b)
+        public override string ToString()
         {
-            ruleC r=new ruleC{ a1 = b[0], a2 = b[1], a3 = b[2], a4 = b[3] };
-            return r;
+            return $"{a1}:{a2}:{a3}:{a4}";
+        }
+        public static  ruleC fromint(byte[]b)
+        {
+            if (b.Length == 4)
+            {
+                ruleC r = new ruleC { a1 = b[0], a2 = b[1], a3 = b[2], a4 = b[3] };
+                return r;
+            }
+            else
+            {
+                ruleC r = new ruleC { a1 = b[0], a2 = b[1] };
+                return r;
+            }
         }
     }
 }

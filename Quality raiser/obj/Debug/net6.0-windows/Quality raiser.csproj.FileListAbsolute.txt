@@ -47,3 +47,15 @@ G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\runtime
 G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\runtimes\win-x86\native\msvcp140_atomic_wait.dll
 G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\runtimes\win-x86\native\msvcp140_codecvt_ids.dll
 G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\runtimes\win-x86\native\vcruntime140.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\avcodec-57.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\avdevice-57.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\avfilter-6.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\avformat-57.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\avutil-55.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\postproc-54.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\swresample-2.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\swscale-4.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\Accord.dll.config
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\Accord.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\Accord.Video.dll
+G:\C# Projects\AI\Quality raiser\Quality raiser\bin\Debug\net6.0-windows\FFmpeg.AutoGen.dll
